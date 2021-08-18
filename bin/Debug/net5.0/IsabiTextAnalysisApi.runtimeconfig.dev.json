@@ -1,0 +1,8 @@
+{
+  "runtimeOptions": {
+    "additionalProbingPaths": [
+      "/home/luckyokoedion/.dotnet/store/|arch|/|tfm|",
+      "/home/luckyokoedion/.nuget/packages"
+    ]
+  }
+}
