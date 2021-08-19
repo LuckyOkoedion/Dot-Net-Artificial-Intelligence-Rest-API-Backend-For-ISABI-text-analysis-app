@@ -33,23 +33,15 @@ namespace IsabiTextAnalysisApi.Controllers
 
             try
             {
-                DetectedLanguage detectedLanguage = await _textAnalyticsClient.DetectLanguageAsync(inputText: theData.Text);
+                DetectedLanguage detectedLanguage = await _textAnalyticsClient.DetectLanguageAsync(theData.Text);
 
-                if (detectLanguage == null)
-                {
-                    return Problem(detail: "The api returned null", statusCode: 503);
-                }
-                else
-                {
-                    return Ok(detectedLanguage);
-
-                }
+                return Ok(detectedLanguage);
 
 
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                return Problem("Internal Server Error", statusCode: 501);
+                throw;
 
             }
 

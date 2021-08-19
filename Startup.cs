@@ -11,6 +11,11 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using Azure;
+using Microsoft.Extensions.Azure;
+using Azure.Identity;
+using System.Globalization;
+using Azure.AI.TextAnalytics;
 
 namespace IsabiTextAnalysisApi
 {
@@ -26,6 +31,8 @@ namespace IsabiTextAnalysisApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
+            // services.AddSingleton<DependencyInjectionEnabledPolicy>();
 
             services.AddAzureClients(builder =>
           {
