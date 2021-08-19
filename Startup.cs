@@ -11,6 +11,11 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using Azure;
+using Microsoft.Extensions.Azure;
+using Azure.Identity;
+using System.Globalization;
+using Azure.AI.TextAnalytics;
 
 namespace IsabiTextAnalysisApi
 {
@@ -27,13 +32,27 @@ namespace IsabiTextAnalysisApi
         public void ConfigureServices(IServiceCollection services)
         {
 
+            // services.AddSingleton<DependencyInjectionEnabledPolicy>();
+
+            services.AddAzureClients(builder =>
+          {
+              builder.AddSecretClient(Configuration.GetSection("KeyVault"));
+
+              builder.AddTextAnalyticsClient(Configuration.GetSection("TextAnalysis"));
+
+              builder.UseCredential(new DefaultAzureCredential());
+
+          });
+
             services.AddControllers();
 
 
-            // services.AddSwaggerGen(c =>
-            // {
-            //     c.SwaggerDoc("v1", new OpenApiInfo { Title = "Isabi Text Analysis Api", Version = "v1" });
-            // });
+
+
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Isabi Text Analysis Api", Version = "v1" });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -42,8 +61,8 @@ namespace IsabiTextAnalysisApi
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                // app.UseSwagger();
-                // app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "IsabiTextAnalysisApi v1"));
+                app.UseSwagger();
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "IsabiTextAnalysisApi v1"));
             }
 
             app.UseHttpsRedirection();

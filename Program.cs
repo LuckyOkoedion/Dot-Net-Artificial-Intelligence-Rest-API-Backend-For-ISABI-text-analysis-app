@@ -6,6 +6,9 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Azure;
+using System.Globalization;
+using Azure.AI.TextAnalytics;
 
 namespace IsabiTextAnalysisApi
 {
