@@ -5,3 +5,5 @@ This is the .Net Core (C#) Rest API Backend built to interface with the Azure Ar
 It has endpoints for opinion sentiment analysis and text language detection.
 
 [Link to the api documentation where you can also test it](https://isabi-text-analysis-rest-api.azurewebsites.net/swagger)
+
+Remember to leave a star on the repo if you like it.
