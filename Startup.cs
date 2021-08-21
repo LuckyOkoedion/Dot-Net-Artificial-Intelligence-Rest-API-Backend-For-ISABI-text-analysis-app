@@ -16,6 +16,8 @@ using Microsoft.Extensions.Azure;
 using Azure.Identity;
 using System.Globalization;
 using Azure.AI.TextAnalytics;
+using Azure.Security.KeyVault.Secrets;
+using Azure.Core;
 
 namespace IsabiTextAnalysisApi
 {
@@ -58,12 +60,12 @@ namespace IsabiTextAnalysisApi
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "IsabiTextAnalysisApi v1"));
-            }
+            // if (env.IsDevelopment())
+            // {
+            app.UseDeveloperExceptionPage();
+            app.UseSwagger();
+            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "IsabiTextAnalysisApi v1"));
+            // }
 
             app.UseHttpsRedirection();
 
