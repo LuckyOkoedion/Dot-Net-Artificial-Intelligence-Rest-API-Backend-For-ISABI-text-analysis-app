@@ -34,17 +34,17 @@ namespace IsabiTextAnalysisApi
         public void ConfigureServices(IServiceCollection services)
         {
 
-            // services.AddSingleton<DependencyInjectionEnabledPolicy>();
+         
 
-            services.AddAzureClients(builder =>
-          {
-              builder.AddSecretClient(Configuration.GetSection("KeyVault"));
+                services.AddAzureClients(builder =>
+              {
+              builder.AddSecretClient(new Uri(Environment.GetEnvironmentVariable("VaultUri")));
 
-              builder.AddTextAnalyticsClient(Configuration.GetSection("TextAnalysis"));
+                  builder.AddTextAnalyticsClient(new Uri(Environment.GetEnvironmentVariable("ServiceUri")));
 
-              builder.UseCredential(new DefaultAzureCredential());
+                  builder.UseCredential(new DefaultAzureCredential());
 
-          });
+              });
 
             services.AddControllers();
 
@@ -53,7 +53,7 @@ namespace IsabiTextAnalysisApi
 
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Isabi Text Analysis Api", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Isabi Text Analysis Api", Version = "By Lucky Okoedion" });
             });
         }
 
