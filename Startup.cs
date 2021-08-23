@@ -33,18 +33,26 @@ namespace IsabiTextAnalysisApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(builder =>
+                {
+                    builder.AllowAnyOrigin();
+                });
+            });
 
-         
 
-                services.AddAzureClients(builder =>
-              {
+
+
+            services.AddAzureClients(builder =>
+          {
               builder.AddSecretClient(new Uri(Environment.GetEnvironmentVariable("VaultUri")));
 
-                  builder.AddTextAnalyticsClient(new Uri(Environment.GetEnvironmentVariable("ServiceUri")));
+              builder.AddTextAnalyticsClient(new Uri(Environment.GetEnvironmentVariable("ServiceUri")));
 
-                  builder.UseCredential(new DefaultAzureCredential());
+              builder.UseCredential(new DefaultAzureCredential());
 
-              });
+          });
 
             services.AddControllers();
 
