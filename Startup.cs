@@ -23,6 +23,8 @@ namespace IsabiTextAnalysisApi
 {
     public class Startup
     {
+        readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -35,11 +37,9 @@ namespace IsabiTextAnalysisApi
         {
             services.AddCors(options =>
             {
-                options.AddDefaultPolicy(builder =>
+                options.AddPolicy(name: MyAllowSpecificOrigins, builder =>
                 {
-                    builder.AllowAnyOrigin();
-                    builder.AllowAnyMethod();
-                    builder.AllowAnyHeader();
+                    builder.WithOrigins("https://white-sand-04e550110.azurestaticapps.net/");
                 });
             });
 
@@ -70,10 +70,7 @@ namespace IsabiTextAnalysisApi
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            app.UseCors(builder => builder
-                        .AllowAnyOrigin()
-                        .AllowAnyMethod()
-                        .AllowAnyHeader());
+
             // if (env.IsDevelopment())
             // {
             app.UseDeveloperExceptionPage();
@@ -82,6 +79,8 @@ namespace IsabiTextAnalysisApi
             // }
 
             app.UseHttpsRedirection();
+
+            app.UseCors(MyAllowSpecificOrigins);
 
 
             app.UseRouting();
