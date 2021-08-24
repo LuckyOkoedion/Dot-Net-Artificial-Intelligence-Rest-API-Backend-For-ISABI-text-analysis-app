@@ -39,7 +39,9 @@ namespace IsabiTextAnalysisApi
             {
                 options.AddPolicy(name: MyAllowSpecificOrigins, builder =>
                 {
-                    builder.WithOrigins("https://white-sand-04e550110.azurestaticapps.net/");
+                    builder.WithOrigins("https://white-sand-04e550110.azurestaticapps.net")
+                    .AllowAnyHeader()
+                    .AllowAnyMethod();
                 });
             });
 
